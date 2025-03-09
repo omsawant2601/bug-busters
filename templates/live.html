@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Hand Sign Detection</title>
+    <style>
+        #video-feed {
+            display: inline-block;
+            vertical-align: top;
+            width: 640px;
+            height: 480px;
+        }
+        #text-display {
+            display: inline-block;
+            margin-left: 20px;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #audio-player {
+            margin-top: 20px;
+        }
+    </style>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#video-feed {
+    display: inline-block;
+    vertical-align: top;
+    width: 640px;
+    height: 480px;
+    border: 5px solid #444;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+#text-display {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+    text-align: left;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 300px;
+    min-height: 460px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+#text-display p {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#predicted-text {
+    font-size: 22px;
+    font-weight: bold;
+    color: #007bff;
+    min-height: 40px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button#clear-button {
+    background-color: #dc3545;
+}
+
+button#clear-button:hover {
+    background-color: #c82333;
+}
+
+button#reset-button {
+    background-color: #ffc107;
+    color: #000;
+}
+
+button#reset-button:hover {
+    background-color: #e0a800;
+}
+
+button#speech-button {
+    background-color: #28a745;
+}
+
+button#speech-button:hover {
+    background-color: #218838;
+}
+
+#audio-player {
+    display: none;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    #video-feed, #text-display {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    #text-display {
+        margin-top: 20px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <h1>Live Hand Sign Detection</h1>
+    <div>
+        <img id="video-feed" src="{{ url_for('video_feed') }}">
+        <div id="text-display">
+            <p>Predicted Text: <span id="predicted-text"></span></p>
+            <button id="clear-button">Clear Text</button>
+            <button id="reset-button">Reset All</button>
+            <button id="speech-button">Convert to Speech</button>
+            <audio id="audio-player" controls style="display: none;"></audio>
+        </div>
+    </div>
+
+    <script>
+        let lastText = "";  // Track the last text received
+
+        // Function to update the predicted text
+        function updatePredictedText(text) {
+            if (text !== lastText) {
+                document.getElementById('predicted-text').textContent = text;
+                lastText = text;
+            }
+        }
+
+        // Function to clear the predicted text
+        document.getElementById('clear-button').addEventListener('click', function() {
+            fetch('/clear_text', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        document.getElementById('predicted-text').textContent = '';
+                        lastText = "";
+                    }
+                });
+        });
+
+        // Function to reset all (clear text and reset state)
+        document.getElementById('reset-button').addEventListener('click', function() {
+            fetch('/reset_all', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        document.getElementById('predicted-text').textContent = '';
+                        lastText = "";
+                        const audioPlayer = document.getElementById('audio-player');
+                        audioPlayer.src = "";  // Clear the audio player
+                        audioPlayer.style.display = "none";
+                    }
+                });
+        });
+
+        // Function to convert text to speech
+        document.getElementById('speech-button').addEventListener('click', function() {
+            fetch('/convert_to_speech', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        const audioPlayer = document.getElementById('audio-player');
+                        audioPlayer.src = data.audio_url;
+                        audioPlayer.style.display = "block";
+                        audioPlayer.play();
+                    } else {
+                        alert(data.message);
+                    }
+                });
+        });
+
+        // Fetch the predicted text from the server every second
+        setInterval(function() {
+            fetch('/get_predicted_text')
+                .then(response => response.json())
+                .then(data => {
+                    updatePredictedText(data.text);
+                });
+        }, 1000);  // Poll every second
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+
+        main {
+            margin: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 20px;
+            margin: 10px auto;
+            width: 80%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .contain{
+            display: flex;
+            justify-content: center;
+            
+
+        }
+        .card{
+            margin: 40px;
+            border-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Sign-to-Text Recognition Features</h1>
+    </header>
+
+    <main>
+        <center>
+            <div class="contain">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/010/938/440/small/set-of-different-hand-gestures-hand-sign-illustrations-of-hand-gesture-sign-language-free-vector.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">1. Real-Time Sign Language Recognition</h5>
+                        <p class="card-text">Uses AI to detect and translate hand signs into letters (A-I) instantly.</p>
+                        
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="https://cdni.iconscout.com/illustration/premium/thumb/boy-streaming-live-on-laptop-illustration-download-in-svg-png-gif-file-formats--blogger-logo-like-gaming-pack-people-illustrations-4723534.png?f=webp" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">2. Live Video Feed</h5>
+                        <p class="card-text">Displays a real-time video stream with sign detection overlay.</p>
+                        
+                    </div>
+                </div>
+            </div>
+                <div class="contain">
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">3. Display Predicted Text</h5>
+                        <p class="card-text">Shows the recognized sign dynamically on the screen.</p>
+                        
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="https://cdn.slidesharecdn.com/ss_thumbnails/usercontrols-120215060043-phpapp02-thumbnail.jpg?width=640&height=640&fit=bounds" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">4. User Controls</h5>
+                        <p class="card-text">Includes Reset, Play (text-to-speech), and Stop buttons.</p>
+                        
+                    </div>
+                </div>
+            </div>
+                <div class="contain">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://images.wondershare.com/anireel/Resource/surprising-top-8-text-to-speech-online-tools-that-can-help-you-in-2021-01.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">5. Text-to-Speech (TTS) Integration</h5>
+                        <p class="card-text">Converts recognized text into speech for better accessibility</p>
+                        
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="https://static.wixstatic.com/media/b2dfda_1c51fe6397954d13a39841c7f66f4a7d~mv2.png/v1/fill/w_480,h_302,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/b2dfda_1c51fe6397954d13a39841c7f66f4a7d~mv2.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">6. Flask Web Interface</h5>
+                        <p class="card-text">Runs on a web browser with an easy-to-use interface</p>
+                        
+                    </div>
+                </div>
+            </div>
+                <div class="contain">
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">7. Optimized Performance</h5>
+                        <p class="card-text">Uses OpenCV and MediaPipe for fast and accurate recognition.</p>
+                        
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">7. Optimized Performance</h5>
+                        <p class="card-text">Uses OpenCV and MediaPipe for fast and accurate recognition.</p>
+                        
+                    </div>
+                </div>
+                </div>
+
+            </div>
+
+        </center>
+
+    </main>
+</body>
+
+</html>

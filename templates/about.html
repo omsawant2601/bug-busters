@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+}
+
+main {
+    margin: 20px;
+}
+
+.about, .mission, .team {
+    background: white;
+    padding: 20px;
+    margin: 10px auto;
+    width: 80%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.about-image {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: #007bff;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>About Sign-to-Text Recognition</h1>
+    </header>
+
+    <main>
+        <section class="about">
+            <img src="{{ url_for('static', filename='sign_language.jpg') }}" alt="Sign Language" class="about-image">
+            <p>
+                The *Sign-to-Text Recognition System* is an AI-powered web application 
+                that translates sign language gestures into text and speech in real time.
+                Using *MediaPipe Hands* and a trained machine learning model, 
+                this system detects hand gestures from a live video feed and converts them 
+                into corresponding letters (A-I).
+            </p>
+        </section>
+
+        <section class="mission">
+            <h2>Our Mission</h2>
+            <p>
+                Our goal is to bridge the communication gap between individuals 
+                using sign language and those who do not understand it. 
+                This system provides *real-time translation*, making interactions 
+                more accessible and inclusive.
+            </p>
+        </section>
+
+        <section class="team">
+            <h2>Meet Our Team</h2>
+            <p>
+                We are a team of passionate developers and AI enthusiasts dedicated to 
+                creating innovative solutions for accessibility. 
+            </p>
+        </section>
+
+        <button onclick="window.location.href='/'">Back to Home</button>
+    </main>
+</body>
+</html>

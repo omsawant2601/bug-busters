@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Sign Language</title>
+
+    <style>
+        /* ======= Global Reset ======= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* ======= Body Background ======= */
+        body {
+            background: linear-gradient(to right, #174269, #5b7ca4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* ======= Page Title ======= */
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        /* ======= Input Text Box ======= */
+        #text-input {
+            width: 60%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #text-input:focus {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ======= Convert Button ======= */
+        button {
+            background-color: #4facfe;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #00c6ff;
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ======= Back to Home Button ======= */
+        button:nth-child(2) {
+            background-color: #ff4b2b;
+        }
+
+        button:nth-child(2):hover {
+            background-color: #ff6b6b;
+        }
+
+        /* ======= Output Section ======= */
+        #sign-output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            width: 60%;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: 0.5s;
+        }
+
+        /* ======= Sign Language Images ======= */
+        #sign-output img {
+            height: 120px;
+            margin: 5px;
+            border-radius: 5px;
+            transition: transform 0.3s, opacity 0.5s;
+            opacity: 0;
+        }
+
+        #sign-output img.show {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        /* ======= Smooth Scrollbar ======= */
+        #sign-output::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #sign-output::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        #sign-output::-webkit-scrollbar-thumb {
+            background-color: #4facfe;
+            border-radius: 10px;
+        }
+
+        /* ======= Responsive Design ======= */
+        @media (max-width: 768px) {
+            #text-input {
+                width: 90%;
+            }
+
+            #sign-output {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>📝 Text to Sign Language</h1>
+    <input type="text" id="text-input" placeholder="Enter text to convert">
+    <button onclick="convertTextToSign()">💡 Convert</button>
+    <button onclick="window.location.href='/'">🏠 Back to Home</button>
+    <div id="sign-output"></div>
+
+    <script>
+        function convertTextToSign() {
+            let text = document.getElementById("text-input").value;
+            
+            // Call Flask API to convert text to sign language
+            fetch('/convert', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let outputDiv = document.getElementById("sign-output");
+                outputDiv.innerHTML = "";
+
+                // Loop through images and append them to the output div
+                data.images.forEach(imgSrc => {
+                    let img = document.createElement("img");
+                    img.src = imgSrc;
+                    img.classList.add('show');
+                    outputDiv.appendChild(img);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
